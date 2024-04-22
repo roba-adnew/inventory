@@ -1,9 +1,21 @@
 async function getProducts() {
-    const rawResponse = await fetch('https://fakestoreapi.com/products?limit=25');
-    const jsonResponse = await rawResponse.json();
-    const catalog = jsonResponse;
-    
-    return catalog;
+    const catRes = await fetch('https://fakestoreapi.com/products/categories');
+    const categories = await catRes.json();
+
+    const resArray = await Promise.all(
+        categories.map(category => {
+            return fetch(`https://fakestoreapi.com/products/category/${category}?limit=25`)
+        })
+    )
+
+    let products = await Promise.all(
+        resArray.map(res => {
+            return res.json()
+        })
+    )
+    products = products.flat();
+
+    return products;
 }
 
 export default getProducts;
