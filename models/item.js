@@ -10,11 +10,9 @@ const ItemSchema = new Schema({
   url: { type: String, required: true}
 });
 
-
-
 // Virtual for item's URL
 ItemSchema.virtual("url").get(function () {
-  return `/category/${this._id}`;
+  return `/catalog/item/${this._id}`;
 });
 
 // Export model
