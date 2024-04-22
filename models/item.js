@@ -7,7 +7,6 @@ const ItemSchema = new Schema({
   category: { type: String, required: true },
   price: { type: Number, required: true },
   stock: { type: Number, required: true },
-  url: { type: String, required: true}
 });
 
 // Virtual for item's URL
