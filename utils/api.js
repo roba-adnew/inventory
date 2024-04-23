@@ -22,3 +22,5 @@ export async function getProducts() {
 
     return products;
 };
+
+getCategories();

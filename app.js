@@ -11,9 +11,9 @@ var app = express();
 
 // mongodb setup
 
-const mongoose = require("mongoose");
-mongoose.set("strictQuery", false);
-const mongoDB = "mongodb+srv://roba:ntmk0yWCpMFWqYJw@cluster0.wuelpqz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const mongoose = require('mongoose');
+mongoose.set('strictQuery', false);
+const mongoDB = 'mongodb+srv://roba:ntmk0yWCpMFWqYJw@cluster0.wuelpqz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
 main().catch((err) => console.log(err));
 async function main() {

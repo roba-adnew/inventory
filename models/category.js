@@ -3,9 +3,10 @@ const { Schema } = mongoose;
 
 const CategorySchema = new Schema({
     name: { type: String, required: true},
-})
+  })
 
 CategorySchema.virtual('url').get(function() {
     `/catalog/category/${this.id}`});
 
-export default mongoose.model('Category', CategorySchema)
+const Category = mongoose.model("Category", CategorySchema);
+export default Category;
