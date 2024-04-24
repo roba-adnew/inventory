@@ -1,9 +1,8 @@
-import express from 'express';
-import * as categoryController from '../controllers/categoryController';
-import * as productController from '../controllers/productController'
-
-
+const express = require('express');
 const router = express.Router();
+
+const categoryController = require("../controllers/categoryController");
+const productController = require("../controllers/productController");
 
 /// PRODUCT ROUTES ///
 
@@ -36,9 +35,6 @@ router.get("/products", productController.productList);
 
 /// CATEGORY ROUTES ///
 
-// GET catalog home page.
-router.get("/", categoryController.index);
-
 // GET request for creating a Category. NOTE This must come before routes that display Category (uses id).
 router.get("/category/create", categoryController.categoryCreateGet);
 
@@ -62,3 +58,5 @@ router.get("/category/:id", categoryController.categoryDetail);
 
 // GET request for list of all Category items.
 router.get("/categories", categoryController.categoryList);
+
+module.exports = router;
