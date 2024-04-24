@@ -1,5 +1,5 @@
 import Category from '../models/category';
-import Product from '../models/product';
+import asyncHandler from 'express-async-handler';
 
 // Display list of all categories
 export const categoryList = asyncHandler(async (req, res) => {
