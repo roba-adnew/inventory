@@ -13,30 +13,30 @@ export const categoryDetail = asyncHandler(async (req, res) => {
 
 // Display category create form on GET
 export const categoryCreateGet = asyncHandler(async (req, res) => {
-    res.send('NOT IMPLEMENTED: Author create GET')
+    res.send('NOT IMPLEMENTED: Category create GET')
 })
 
 // Display category create form on POST
 export const categoryCreatePost = asyncHandler(async (req, res) => {
-    res.send('NOT IMPLEMENTED: Author create POST')
+    res.send('NOT IMPLEMENTED: Category create POST')
 })
 
 // Display category delete form on GET
 export const categoryDeleteGet = asyncHandler(async (req, res) => {
-    res.send('NOT IMPLEMENTED: Author delete GET')
+    res.send('NOT IMPLEMENTED: Category delete GET')
 })
 
 // Display category delete form on POST
 export const categoryDeletePOST = asyncHandler(async (req, res) => {
-    res.send('NOT IMPLEMENTED: Author delete POST')
+    res.send('NOT IMPLEMENTED: Category delete POST')
 })
 
 // Display category update form on GET
 export const categoryUpdateGet = asyncHandler(async (req, res) => {
-    res.send('NOT IMPLEMENTED: Author update GET')
+    res.send('NOT IMPLEMENTED: Category update GET')
 })
 
 // Display category update form on POST
 export const categoryUpdatePOST = asyncHandler(async (req, res) => {
-    res.send('NOT IMPLEMENTED: Author update POST')
+    res.send('NOT IMPLEMENTED: Category update POST')
 })
