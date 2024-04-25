@@ -1,9 +1,20 @@
-const Product = require("../models/product");
-const asyncHandler = require("express-async-handler");
+const Product = require('../models/product');
+const Category = require('../models/category')
+
+const asyncHandler = require('express-async-handler');
 
 exports.index = asyncHandler(async (req, res) => {
-    res.send("NOT IMPLEMENTED: Site Home Page");
-  });
+    const [numProducts, numCategories] =
+        await Promise.all([
+            Product.countDocuments({}).exec(),
+            Category.countDocuments({}).exec()
+        ]);
+        res.render('layout', {
+            title: 'Diglets Department Store',
+            productCount: numProducts,
+            categoryCount: numCategories
+        })
+});
 
 // Display list of all products
 exports.productList = asyncHandler(async (req, res) => {
