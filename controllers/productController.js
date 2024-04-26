@@ -4,6 +4,9 @@ const Category = require('../models/category')
 const asyncHandler = require('express-async-handler');
 
 exports.dynamicHandler = asyncHandler(async (req, res) => {
+    let renderObject;
+    console.log(req.path);
+
     switch (req.path) {
         case '/':
             const [numProducts, numCategories] =
@@ -11,14 +14,25 @@ exports.dynamicHandler = asyncHandler(async (req, res) => {
                     Product.countDocuments({}).exec(),
                     Category.countDocuments({}).exec()
                 ]);
-            res.render('layout', {
+            renderObject = {
+                page: 'index',
                 title: 'Diglets Department Store',
                 productCount: numProducts,
                 categoryCount: numCategories
-            });
-        
-        
+            };
+        case '/catalog/products': 
+            const allProducts = await Product
+                .find({}, "name category description")
+                .sort({ name: 1})
+                .populate("category")
+                .exec();
+            renderObject = {
+                page: 'productList',
+                title: 'Inventory', 
+                productList: allProducts 
+            }
     }
+    res.render('layout', renderObject)
 })
 
 

@@ -1,0 +1,11 @@
+<% if (productList) {%>
+    <ul>
+        <% for (let product of productList) { %>
+            <li>
+                <a href=<%- product.url %>><%= product.name %></a>
+            </li>
+            <% }%>
+    </ul>
+<% } else {%>
+    <p>We don't have any inventory right now</p>
+    <% }%>
