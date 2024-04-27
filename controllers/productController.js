@@ -5,7 +5,6 @@ const asyncHandler = require('express-async-handler');
 
 exports.dynamicHandler = asyncHandler(async (req, res) => {
     let renderObject;
-    console.log(req.path);
 
     switch (req.path) {
         case '/':
@@ -20,28 +19,35 @@ exports.dynamicHandler = asyncHandler(async (req, res) => {
                 productCount: numProducts,
                 categoryCount: numCategories
             };
-        case '/catalog/products': 
+            break;
+        case '/products':
             const allProducts = await Product
                 .find({}, "name category description")
-                .sort({ name: 1})
+                .sort({ name: 1 })
                 .populate("category")
                 .exec();
             renderObject = {
                 page: 'productList',
-                title: 'Inventory', 
-                productList: allProducts 
+                title: 'Inventory',
+                productList: allProducts
             }
+            break;
+        case '/departments':
+            const allDepartments = await Category
+                .find({}, "name")
+                .sort({ name: 1 })
+                .exec();
+            renderObject = {
+                page: 'categoryList',
+                title: 'Departments',
+                categoryList: allDepartments
+            }
+            break;
     }
     res.render('layout', renderObject)
 })
 
 
-
-
-// // Display list of all products
-// exports.productList = asyncHandler(async (req, res) => {
-//     res.send('NOT IMPLEMENTED: Product list')
-// })
 
 // // Display detail page for a given product
 // exports.productDetail = asyncHandler(async (req, res) => {

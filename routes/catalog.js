@@ -10,11 +10,6 @@ const productController = require("../controllers/productController");
 
 router.get('*', productController.dynamicHandler)
 
-// // GET request for list of all Product items.
-// router.get("/products", productController.productList);
-
-
-
 
 // // GET request for creating a Product. NOTE This must come before routes that display Product (uses id).
 // router.get("/product/create", productController.productCreateGet);
@@ -34,8 +29,7 @@ router.get('*', productController.dynamicHandler)
 // // POST request to update Product.
 // router.post("/product/:id/update", productController.productUpdatePost);
 
-// // GET request for one Product.
-// router.get("/product/:id", productController.productDetail);
+
 
 
 // /// CATEGORY ROUTES ///
