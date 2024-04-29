@@ -10,6 +10,9 @@ const productController = require("../controllers/productController");
 
 router.get('*', productController.dynamicHandler)
 
+// // GET request for one Product.
+// router.get("/product/:id", productController.productDetail);
+
 
 // // GET request for creating a Product. NOTE This must come before routes that display Product (uses id).
 // router.get("/product/create", productController.productCreateGet);

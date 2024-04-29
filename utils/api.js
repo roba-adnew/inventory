@@ -1,10 +1,10 @@
-export async function getCategories() {
+async function getCategories() {
     const catRes = await fetch('https://fakestoreapi.com/products/categories');
     const categories = await catRes.json();
     return categories;
 }
 
-export async function getProducts() {
+async function getProducts() {
     const categories = await getCategories();
 
     const resArray = await Promise.all(
@@ -23,4 +23,4 @@ export async function getProducts() {
     return products;
 };
 
-getCategories();
+module.exports = { getCategories, getProducts }

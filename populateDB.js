@@ -1,9 +1,8 @@
-import mongoose from 'mongoose';
-import { getCategories, getProducts} from './utils/api.js'
-import Product from './models/product.js';
-import Category from './models/category.js';
+const mongoose = require('mongoose');
+const { getCategories, getProducts} = require('./utils/api.js')
 
-const products = [];
+const Category = require('./models/category.js');
+const Product = require('./models/product.js');
 const categories = [];
 
 mongoose.set('strictQuery', false);
@@ -29,17 +28,17 @@ async function categoryCreate(index, name) {
     console.log(`Added category: ${name}`)
 }
 
-async function productCreate(index, name, description, category, price, stock) {
+async function productCreate(name, description, category, price, stock) {
+    const categoryID = categories.find(cat => cat.name === category)
     const product = new Product ({ 
         name : name, 
         description : description, 
-        category : category, 
+        category : categoryID, 
         price : price, 
         stock: stock 
     })
 
     await product.save();
-    products[index] = product;
     console.log(`Added product: ${name}`)
 }
 
@@ -55,9 +54,8 @@ async function createProducts() {
     console.log('Debug: Pulling products from api');
     const products = await getProducts();
     console.log('Debug: Pulling products from api');
-    await Promise.all(products.map((product, index) => 
+    await Promise.all(products.map(product => 
         productCreate(
-            index,
             product.title, 
             product.description, 
             product.category, 
