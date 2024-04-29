@@ -2,13 +2,23 @@ const Product = require('../models/product');
 const Category = require('../models/category')
 
 const asyncHandler = require('express-async-handler');
-const { render } = require('../app');
+
+exports.productDetail = asyncHandler(async (req, res) => {
+    const productDetails = await Product
+        .findById(req.params.id)
+        .populate('category')
+        .exec();
+    renderObject = {
+        page: 'productDetails',
+        title: 'Product',
+        productDetails: productDetails
+    }
+    console.log(productDetails.category)
+    res.render('layout', renderObject)
+})
 
 exports.dynamicHandler = asyncHandler(async (req, res) => {
     let renderObject;
-
-    console.log(`Requesting URL: ${req.path}`);
-    console.log(`Params: ${req.params.id}`);
 
     switch (req.path) {
         case '/':
@@ -47,20 +57,7 @@ exports.dynamicHandler = asyncHandler(async (req, res) => {
                 categoryList: allDepartments
             }
             break;
-        case '/product/':
-            // const productDetails = await Product
-            //     .findById(req.params.id)
-            //     .exec();
-            renderObject = {
-                page: 'productDetails',
-                title: 'Product',
-                // productDetails: productDetails
-            }
-            break;
-        default:
-
     }
-    // console.log(renderObject);
     res.render('layout', renderObject)
 })
 

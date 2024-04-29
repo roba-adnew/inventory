@@ -1,3 +1,16 @@
-<h1>Testing product details page</h1>
-<div style="margin-left:20px;margin-top:20px"></div>
+
+<div style="margin-left:20px;margin-top:20px">
+    <h1><%= productDetails.name %></h1>
+    <hr>
+    <p><u><%= productDetails.category.name %></u></p>
+    <p><%= productDetails.description %></p>
+    <p><b><%= `$${productDetails.price}`%></b></p>
+    <p><i><%= `In stock: ${productDetails.stock}` %></i></p>
+</div>
+
+
+
+
+
+
 
