@@ -6,6 +6,8 @@ const productController = require("../controllers/productController");
 
 /// PRODUCT ROUTES ///
 
+// GET request for one Category.
+router.get("/department/:id", categoryController.categoryDetail);
 
 // GET request for one Product.
 router.get("/product/:id", productController.productDetail);

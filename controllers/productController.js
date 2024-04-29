@@ -3,6 +3,8 @@ const Category = require('../models/category')
 
 const asyncHandler = require('express-async-handler');
 
+
+
 exports.productDetail = asyncHandler(async (req, res) => {
     const productDetails = await Product
         .findById(req.params.id)

@@ -25,7 +25,7 @@ async function categoryCreate(index, name) {
     const category = new Category({ name : name });
     await category.save();
     categories[index] = category;
-    console.log(`Added category: ${name}`)
+    console.log(`Added category: ${name} with url: ${category.url}`)
 }
 
 async function productCreate(name, description, category, price, stock) {

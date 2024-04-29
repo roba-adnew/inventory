@@ -1,0 +1,12 @@
+<h1><%= department.name %></h1>
+<% if (categoryProducts) {%>
+    <ul>
+        <% for (let product of categoryProducts) { %>
+            <li>
+                <a href=<%- product.url %>><%= product.name %></a>
+            </li>
+            <% }%>
+    </ul>
+<% } else {%>
+    <p>We don't have any inventory right now</p>
+    <% }%>
