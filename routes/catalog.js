@@ -5,6 +5,11 @@ const categoryController = require("../controllers/categoryController");
 const productController = require("../controllers/productController");
 
 /// PRODUCT ROUTES ///
+// GET request for creating a Department
+router.get("/department/create", categoryController.categoryCreateGet);
+
+// POST request for creating Category.
+router.post("/department/create", categoryController.categoryCreatePost);
 
 // GET request for one Category.
 router.get("/department/:id", categoryController.categoryDetail);
