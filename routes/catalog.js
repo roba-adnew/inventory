@@ -14,6 +14,9 @@ router.post("/department/create", categoryController.categoryCreatePost);
 // GET request for one Category.
 router.get("/department/:id", categoryController.categoryDetail);
 
+// GET request for creating a Product. NOTE This must come before routes that display Product (uses id).
+router.get("/product/create", productController.productCreateGet);
+
 // GET request for one Product.
 router.get("/product/:id", productController.productDetail);
 
@@ -23,8 +26,7 @@ router.get('*', productController.dynamicHandler)
 
 
 
-// // GET request for creating a Product. NOTE This must come before routes that display Product (uses id).
-// router.get("/product/create", productController.productCreateGet);
+
 
 // // POST request for creating Product.
 // router.post("/product/create", productController.productCreatePost);

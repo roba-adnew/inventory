@@ -1,0 +1,44 @@
+<h1> Create a new product </h1>
+
+<form method="POST">
+    <div class="form-group">
+        <label for="name">Product Name</label>
+        <input name="name" class="form-control" id="name" type="text" required placeholder="grandma's cookies"
+            value="<%- undefined === product ? '' : product.name %>" />
+    </div>
+    <div class="form-group">
+        <label for="department"> Department</label>
+        <select name="department" id="department" class="form-control" required>
+            <option value="" selected disabled>Choose a department</option>
+            <% for (let department of departments) { %>
+                <option value="<%- department.name %>">
+                    <%= department.name %>
+                </option>
+                <% } %>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="details"> Description / Details</label>
+        <input name="details" id="details" placeholder="tasty damn cookies" class="form-control"
+            value="<%- product===undefined ? '' : product.category.name %>" />
+    </div>
+    <div class="form-group">
+        <label for="price">Price</label>
+        <input class="form-control" name="price" id="price" placeholder="not too much now"
+        value="<%- product===undefined ? '' : product.price%>" />
+    </div>
+    <div class="form-group">
+        <label for="quantity"> Quantity</label>
+        <input class="form-control" name="quantity" id="quantity" placeholder="as much as you want" value="<%- product===undefined ? '' : product.stock%>" />
+    </div>
+    <button type="submit">Add</button>
+</form>
+<% if (errors) {%>
+    <ul>
+        <% for (let error of errors) { %>
+            <li>
+                <%= error.msg %>
+            </li>
+            <% }%>
+    </ul>
+    <% } %>
