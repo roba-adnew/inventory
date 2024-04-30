@@ -1,9 +1,21 @@
 <h1> Create a Department </h1>
 <form method="POST">
     <label> New Department Name
-        <input name="name" placeholder="shoes, hates, etc." />
+        <input 
+            name="name" 
+            placeholder="shoes, hates, etc."
+            value=<%- department === undefined ? '' : department.name %>
+        />
     </label>
     <button type="submit">Add</button>
 </form>
 
-
+<% if (errors) {%>
+    <ul>
+        <% for (let error of errors) { %>
+            <li>
+                <%= error.msg %>
+            </li>
+            <% }%>
+    </ul>
+ <% } %>

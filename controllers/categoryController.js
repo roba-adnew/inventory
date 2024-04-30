@@ -1,24 +1,23 @@
 const Product = require('../models/product');
 const Category = require("../models/category");
 const asyncHandler = require("express-async-handler");
-const { body, validationResult } = require("express-validator");
+const { query, validationResult } = require("express-validator");
 
 
 exports.categoryCreatePost = [
-    body("name", "Department name must contain at least 4 characters")
+    query("name", "Department name must contain at least 4 characters")
         .trim()
         .isLength({ min: 4 })
         .escape(),
 
     asyncHandler(async (req, res, next) => {
-        console.log('entered handler')
         const errors = validationResult(req);
 
         const department = new Category({ name: req.body.name });
-        console.log(`Department details: ${department}`)
+        console.log(errors)
 
         if (!errors.isEmpty()) {
-            res.render("categoryForm", {
+            res.render('layout', {
                 page: 'categoryForm',
                 title: "Create a department",
                 department: department,
@@ -31,7 +30,6 @@ exports.categoryCreatePost = [
                 await Category
                     .findOne({ name: req.body.name })
                     .exec();
-            console.log(`Department exists: ${departmentExists}`)
             if (departmentExists) {
                 res.redirect(departmentExists.url);
             }
