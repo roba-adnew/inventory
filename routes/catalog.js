@@ -3,6 +3,7 @@ const router = express.Router();
 
 const categoryController = require("../controllers/categoryController");
 const productController = require("../controllers/productController");
+const navController = require("../controllers/navController");
 
 /// PRODUCT ROUTES ///
 // GET request for creating a Department
@@ -37,47 +38,6 @@ router.get("/product/:id", productController.productDetail);
 
 
 // GET catalog home page, department list page, and product list page.
-router.get('*', productController.dynamicHandler)
-
-
-
-
-
-
-// // POST request for creating Product.
-// router.post("/product/create", productController.productCreatePost);
-
-
-
-// // GET request to update Product.
-// router.get("/product/:id/update", productController.productUpdateGet);
-
-// // POST request to update Product.
-// router.post("/product/:id/update", productController.productUpdatePost);
-
-
-
-
-// /// CATEGORY ROUTES ///
-
-// // GET request for creating a Category. NOTE This must come before routes that display Category (uses id).
-// router.get("/category/create", categoryController.categoryCreateGet);
-
-// // POST request for creating Category.
-// router.post("/category/create", categoryController.categoryCreatePost);
-
-
-
-// // GET request to update Category.
-// router.get("/category/:id/update", categoryController.categoryUpdateGet);
-
-// // POST request to update Category.
-// router.post("/category/:id/update", categoryController.categoryUpdatePost);
-
-// // GET request for one Category.
-// router.get("/category/:id", categoryController.categoryDetail);
-
-// // GET request for list of all Category items.
-// router.get("/categories", categoryController.categoryList);
+router.get('*', navController.dynamicHandler)
 
 module.exports = router;
