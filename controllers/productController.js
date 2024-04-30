@@ -88,7 +88,6 @@ exports.productCreateGet = asyncHandler(async (req, res) => {
 })
 
 exports.productDeletePost = asyncHandler(async (req, res) => {
-    console.log(req.body.product)
     await Product
         .findByIdAndDelete(req.body.product)
         .exec();

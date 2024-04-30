@@ -1,0 +1,20 @@
+<h1><%= title %></h1>
+<% if (categoryProducts.length > 0) {%>
+    <ul>
+        <% for (let product of categoryProducts) { %>
+            <li>
+                <a href=<%- product.url %>><%= product.name %></a>
+            </li>
+            <% }%>
+    </ul>
+    <p>All products in this department have to be deleted before deleting the department</p>
+<% } else {%>
+    <p>There are no products in this department</p>
+    <p>Are you sure  you want to delete <b><%= department.name %></b></p>
+    <form method="post">
+        <div class="form-group">
+            <input class="form-control" name="department" type="hidden" value="<%= department._id %>"/>
+            <button class="btn btn-primary" type="submit">Delete</button>
+        </div>
+    </form>
+    <% }%>

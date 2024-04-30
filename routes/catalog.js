@@ -11,6 +11,12 @@ router.get("/department/create", categoryController.categoryCreateGet);
 // POST request for creating Category.
 router.post("/department/create", categoryController.categoryCreatePost);
 
+// GET request to delete Category.
+router.get("/department/:id/delete", categoryController.categoryDeleteGet);
+
+// POST request to delete Category.
+router.post("/department/:id/delete", categoryController.categoryDeletePost);
+
 // GET request for one Category.
 router.get("/department/:id", categoryController.categoryDetail);
 
@@ -28,7 +34,6 @@ router.post("/product/:id/delete", productController.productDeletePost);
 
 // GET request for one Product.
 router.get("/product/:id", productController.productDetail);
-
 
 
 // GET catalog home page, department list page, and product list page.
@@ -61,11 +66,7 @@ router.get('*', productController.dynamicHandler)
 // // POST request for creating Category.
 // router.post("/category/create", categoryController.categoryCreatePost);
 
-// // GET request to delete Category.
-// router.get("/category/:id/delete", categoryController.categoryDeleteGet);
 
-// // POST request to delete Category.
-// router.post("/category/:id/delete", categoryController.categoryDeletePost);
 
 // // GET request to update Category.
 // router.get("/category/:id/update", categoryController.categoryUpdateGet);
