@@ -20,8 +20,16 @@ router.get("/product/create", productController.productCreateGet);
 // POST request for creating Product.
 router.post("/product/create", productController.productCreatePost);
 
+// GET request to delete Product.
+router.get("/product/:id/delete", productController.productDeleteGet);
+
+// POST request to delete Product.
+router.post("/product/:id/delete", productController.productDeletePost);
+
 // GET request for one Product.
 router.get("/product/:id", productController.productDetail);
+
+
 
 // GET catalog home page, department list page, and product list page.
 router.get('*', productController.dynamicHandler)
@@ -34,11 +42,7 @@ router.get('*', productController.dynamicHandler)
 // // POST request for creating Product.
 // router.post("/product/create", productController.productCreatePost);
 
-// // GET request to delete Product.
-// router.get("/product/:id/delete", productController.productDeleteGet);
 
-// // POST request to delete Product.
-// router.post("/product/:id/delete", productController.productDeletePost);
 
 // // GET request to update Product.
 // router.get("/product/:id/update", productController.productUpdateGet);

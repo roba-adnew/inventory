@@ -1,0 +1,17 @@
+
+<div style="margin-left:20px;margin-top:20px">
+    <h1>Delete <%= productDetails.name %></h1>
+    <hr>
+    <p><u><%= productDetails.category.name %></u></p>
+    <p><%= productDetails.description %></p>
+    <p><b><%= `$${productDetails.price}`%></b></p>
+    <p><i><%= `In stock: ${productDetails.stock}` %></i></p>
+    <hr>
+    <p>Are you sure  you want to delete <b><%= productDetails.name %></b></p>
+    <form method="post">
+        <div class="form-group">
+            <input class="form-control" name="product" type="hidden" value="<%= productDetails._id %>"/>
+            <button class="btn btn-primary" type="submit">Delete</button>
+        </div>
+</form>
+</div>

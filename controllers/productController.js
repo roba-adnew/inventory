@@ -46,14 +46,14 @@ exports.productCreatePost = [
                 .find({}, "name")
                 .sort({ name: 1 })
                 .exec();
-            const renderObject = {
+            const renderConfig = {
                 page: 'productForm',
                 title: 'New Product Form',
                 product: product,
                 errors: errors.array(),
                 departments: allDepartments
             }
-            res.render('layout', renderObject);
+            res.render('layout', renderConfig);
             return;
         }
         else {
@@ -72,20 +72,45 @@ exports.productCreatePost = [
     })
 ]
 
-
 exports.productCreateGet = asyncHandler(async (req, res) => {
     const allDepartments = await Category
         .find({}, "name")
         .sort({ name: 1 })
         .exec();
-    const renderObject = {
+    const renderConfig = {
         page: 'productForm',
         title: 'New Product Form',
         product: undefined,
         errors: undefined,
         departments: allDepartments
     }
-    res.render('layout', renderObject)
+    res.render('layout', renderConfig)
+})
+
+exports.productDeletePost = asyncHandler(async (req, res) => {
+    console.log(req.body.product)
+    await Product
+        .findByIdAndDelete(req.body.product)
+        .exec();
+    res.redirect('/catalog/products')
+})
+
+exports.productDeleteGet = asyncHandler(async (req, res) => {
+    const productDetails = await Product
+        .findById(req.params.id)
+        .exec();
+
+    if (productDetails === null) {
+        res.redirect('/catalog/products')
+    }
+
+    const renderConfig = {
+        page: 'productDelete',
+        title: 'Delete Product',
+        productDetails: productDetails,
+    };
+
+    res.render('layout', renderConfig)
 })
 
 
@@ -94,17 +119,16 @@ exports.productDetail = asyncHandler(async (req, res) => {
         .findById(req.params.id)
         .populate('category')
         .exec();
-    const renderObject = {
+    const renderConfig = {
         page: 'productDetails',
         title: 'Product',
         productDetails: productDetails
     }
-    console.log(productDetails.category)
-    res.render('layout', renderObject)
+    res.render('layout', renderConfig)
 })
 
 exports.dynamicHandler = asyncHandler(async (req, res) => {
-    let renderObject;
+    let renderConfig;
 
     switch (req.path) {
         case '/':
@@ -113,7 +137,7 @@ exports.dynamicHandler = asyncHandler(async (req, res) => {
                     Product.countDocuments({}).exec(),
                     Category.countDocuments({}).exec()
                 ]);
-            renderObject = {
+            renderConfig = {
                 page: 'index',
                 title: 'Diglets Department Store',
                 productCount: numProducts,
@@ -126,7 +150,7 @@ exports.dynamicHandler = asyncHandler(async (req, res) => {
                 .sort({ name: 1 })
                 .populate("category")
                 .exec();
-            renderObject = {
+            renderConfig = {
                 page: 'productList',
                 title: 'Inventory',
                 productList: allProducts
@@ -137,14 +161,14 @@ exports.dynamicHandler = asyncHandler(async (req, res) => {
                 .find({}, "name")
                 .sort({ name: 1 })
                 .exec();
-            renderObject = {
+            renderConfig = {
                 page: 'categoryList',
                 title: 'Departments',
                 categoryList: allDepartments
             }
             break;
     }
-    res.render('layout', renderObject)
+    res.render('layout', renderConfig)
 })
 
 
