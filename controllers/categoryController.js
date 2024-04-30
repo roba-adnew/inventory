@@ -1,13 +1,13 @@
 const Product = require('../models/product');
 const Category = require("../models/category");
 const asyncHandler = require("express-async-handler");
-const { query, validationResult } = require("express-validator");
+const { body, validationResult } = require("express-validator");
 
 
 exports.categoryCreatePost = [
-    query("name", "Department name must contain at least 4 characters")
+    body("name", "Department name must contain at least 4 characters")
         .trim()
-        .isLength({ min: 4 })
+        .isLength({ min: 3 })
         .escape(),
 
     asyncHandler(async (req, res, next) => {
@@ -15,6 +15,7 @@ exports.categoryCreatePost = [
 
         const department = new Category({ name: req.body.name });
         console.log(errors)
+        console.log(req.body)
 
         if (!errors.isEmpty()) {
             res.render('layout', {
@@ -43,7 +44,12 @@ exports.categoryCreatePost = [
 
 
 exports.categoryCreateGet = asyncHandler(async (req, res) => {
-    res.render('layout', { title: 'New Department Form', page: 'categoryForm' })
+    const renderObject = { 
+        title: 'New Department Form', 
+        department: undefined,
+        errors: undefined,
+        page: 'categoryForm' }
+    res.render('layout', renderObject)
 })
 
 // Display detail page for a given category

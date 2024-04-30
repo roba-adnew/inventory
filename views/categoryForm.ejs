@@ -3,8 +3,8 @@
     <label> New Department Name
         <input 
             name="name" 
-            placeholder="shoes, hates, etc."
-            value=<%- department === undefined ? '' : department.name %>
+            placeholder="shoes, hats, etc."
+            value="<% undefined === department ? '' : department.name %>"
         />
     </label>
     <button type="submit">Add</button>

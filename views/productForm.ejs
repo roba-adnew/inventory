@@ -11,25 +11,32 @@
         <select name="department" id="department" class="form-control" required>
             <option value="" selected disabled>Choose a department</option>
             <% for (let department of departments) { %>
-                <option value="<%- department.name %>">
-                    <%= department.name %>
-                </option>
+                <% if (product && department._id.toString === product.category._id.toString()) { %>
+                    <option value="<%- product.category._id._id %>">
+                        <%= product.category._id.name %>
+                    </option>
+                <% } else { %>
+                    <option value="<%- department._id %>">
+                        <%= department.name %>
+                    </option>
                 <% } %>
+            <% } %>
         </select>
     </div>
     <div class="form-group">
         <label for="details"> Description / Details</label>
         <input name="details" id="details" placeholder="tasty damn cookies" class="form-control"
-            value="<%- product===undefined ? '' : product.category.name %>" />
+            value="<%- product===undefined ? '' : product.description %>" />
     </div>
     <div class="form-group">
         <label for="price">Price</label>
         <input class="form-control" name="price" id="price" placeholder="not too much now"
-        value="<%- product===undefined ? '' : product.price%>" />
+            value="<%- product===undefined ? '' : product.price%>" />
     </div>
     <div class="form-group">
         <label for="quantity"> Quantity</label>
-        <input class="form-control" name="quantity" id="quantity" placeholder="as much as you want" value="<%- product===undefined ? '' : product.stock%>" />
+        <input class="form-control" name="quantity" id="quantity" type="number" placeholder="as much as you want"
+            value="<%- product===undefined ? '' : product.stock%>" />
     </div>
     <button type="submit">Add</button>
 </form>
