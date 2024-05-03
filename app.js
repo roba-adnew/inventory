@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 var indexRouter = require('./routes/index');
@@ -10,6 +11,7 @@ var usersRouter = require('./routes/users');
 const catalogRouter = require('./routes/catalog');
 const compression = require("compression");
 const helmet = require("helmet");
+const User = require('./models/user')
 
 var app = express();
 
@@ -20,7 +22,6 @@ const limiter = RateLimit({
 });
 
 // mongodb setup
-
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
 const dev_db_url =
@@ -49,6 +50,8 @@ app.use(
     },
   }),
 );
+app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+app.use(passport.session());
 app.use(limiter);
 app.use(logger('dev'));
 app.use(express.json());
