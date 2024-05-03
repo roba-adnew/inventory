@@ -4,9 +4,16 @@ const router = express.Router();
 const categoryController = require("../controllers/categoryController");
 const productController = require("../controllers/productController");
 const navController = require("../controllers/navController");
+const accountController = require("../controllers/accountController");
+
+/// ACCOUNT ROUTES ///
+router.get("/sign-up", accountController.accountCreateGet)
+
+router.post("/sign-up", accountController.accountCreatePost)
 
 /// PRODUCT ROUTES ///
 // GET request for creating a Department
+
 router.get("/department/create", categoryController.categoryCreateGet);
 
 // POST request for creating Category.
@@ -36,8 +43,9 @@ router.post("/product/:id/delete", productController.productDeletePost);
 // GET request for one Product.
 router.get("/product/:id", productController.productDetail);
 
-
 // GET catalog home page, department list page, and product list page.
 router.get('*', navController.dynamicHandler)
+
+
 
 module.exports = router;
