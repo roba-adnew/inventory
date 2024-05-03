@@ -38,7 +38,6 @@ async function main() {
 }
 main();
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -61,6 +60,48 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/catalog', catalogRouter);
+
+
+// passport set-up
+passport.use(
+  new LocalStrategy(async (username, password, done) => {
+    try {
+      const user = await User.findOne({ username: username });
+      if (!user) {
+        return done(null, false, { message: "Incorrect username" });
+      };
+      if (user.password !== password) {
+        return done(null, false, { message: "Incorrect password" });
+      };
+      return done(null, user);
+    } catch (err) {
+      return done(err);
+    };
+  })
+);
+
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (err) {
+    done(err);
+  };
+});
+
+app.post(
+  "/users/login",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/"
+  })
+);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
