@@ -22,15 +22,21 @@ const limiter = RateLimit({
 
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
-const dev_db_url = 
+const dev_db_url =
   'mongodb+srv://roba:ntmk0yWCpMFWqYJw@cluster0.wuelpqz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
 const mongoDB = process.env.MONGODB_URI || dev_db_url;
 
-main().catch((err) => console.log(err));
 async function main() {
-  await mongoose.connect(mongoDB);
+  await mongoose
+    .connect(mongoDB)
+    .catch((e) => {
+      console.log(e);
+      process.exit(0);
+    })
 }
+main();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -56,12 +62,12 @@ app.use('/users', usersRouter);
 app.use('/catalog', catalogRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
