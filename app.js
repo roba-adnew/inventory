@@ -13,6 +13,7 @@ const compression = require("compression");
 const helmet = require("helmet");
 const User = require('./models/user')
 const bcrypt = require('bcryptjs')
+require('dotenv').config();
 
 var app = express();
 
@@ -25,10 +26,7 @@ const limiter = RateLimit({
 // mongodb setup
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
-const dev_db_url =
-  'mongodb+srv://roba:ntmk0yWCpMFWqYJw@cluster0.wuelpqz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
-
-const mongoDB = process.env.MONGODB_URI || dev_db_url;
+const mongoDB = process.env.MONGODB_URI;
 
 async function main() {
   await mongoose
