@@ -5,6 +5,8 @@ const asyncHandler = require('express-async-handler');
 exports.dynamicHandler = asyncHandler(async (req, res) => {
     let renderConfig;
 
+    
+
     switch (req.path) {
         case '/':
             const [numProducts, numCategories] =
@@ -13,10 +15,11 @@ exports.dynamicHandler = asyncHandler(async (req, res) => {
                     Category.countDocuments({}).exec()
                 ]);
             renderConfig = {
+                categoryCount: numCategories,
                 page: 'index',
-                title: 'Diglets Department Store',
                 productCount: numProducts,
-                categoryCount: numCategories
+                title: 'Diglets Department Store',
+                user: req.user
             };
             break;
         case '/products':

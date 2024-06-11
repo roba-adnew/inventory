@@ -12,6 +12,7 @@ const catalogRouter = require('./routes/catalog');
 const compression = require("compression");
 const helmet = require("helmet");
 const User = require('./models/user')
+const bcrypt = require('bcryptjs')
 
 var app = express();
 
@@ -60,9 +61,6 @@ app.use(cookieParser());
 app.use(compression());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/catalog', catalogRouter);
 
 
 // passport set-up
@@ -73,7 +71,8 @@ passport.use(
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
       };
-      if (user.password !== password) {
+      const match = await bcrypt.compare(password, user.password);
+      if (!match) {
         return done(null, false, { message: "Incorrect password" });
       };
       return done(null, user);
@@ -104,6 +103,25 @@ app.post(
     failureRedirect: "/"
   })
 );
+
+app.get("/users/log-out", (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+});
+
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
+
+// Routers for views 
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/catalog', catalogRouter);
 
 
 // catch 404 and forward to error handler

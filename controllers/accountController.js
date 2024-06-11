@@ -1,42 +1,59 @@
 const asyncHandler = require('express-async-handler');
-const User = require('../models/user')
+const bcrypt = require('bcryptjs');
+const User = require('../models/user');
 
 
 exports.loginGet = asyncHandler(async (req, res, next) => {
     const renderConfig = {
         page: 'loginForm',
-        title: 'Log-In'
+        title: 'Log-In',
+        user: req.user
     }
     res.render('layout', renderConfig)
 })
 
 
-// exports.loginPost = asyncHandler(async (req, res, next) => {
-//     passport.authenticate("local", {
-//         successRedirect: "/",
-//         failureRedirect: "/"
-//       })
-// })
-
 exports.accountCreateGet = asyncHandler(async (req, res, next) => {
     const renderConfig = {
         page: 'signUpForm',
-        title: 'Sign Up'
+        title: 'Sign Up',
+        user: req.user
     }
     console.log(renderConfig)
     res.render('layout', renderConfig)
 })
 
+// exports.accountCreatePost = asyncHandler(async (req, res, next) => {
+//     try {
+//         const user = new User({
+//             username: req.body.username,
+//             password: req.body.password
+//         });
+//         const result = await user.save();
+//         console.log("successful account creation")
+//         res.redirect("/");
+//     } catch (err) {
+//         return next(err);
+//     };
+// })
+
 exports.accountCreatePost = asyncHandler(async (req, res, next) => {
-    try {
-        const user = new User({
-            username: req.body.username,
-            password: req.body.password
-        });
-        const result = await user.save();
-        console.log("successful account creation")
-        res.redirect("/");
-    } catch (err) {
-        return next(err);
-    };
+    bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
+        if (err) {
+            console.log("nah, you had issues at the hash")
+            return next(err);
+        }
+        try {
+            const user = new User({
+                username: req.body.username,
+                password: hashedPassword
+            });
+            const result = await user.save();
+            console.log("successful account creation")
+            res.redirect("/");
+        } catch (err2) {
+            return next(err2);
+        };
+    })
+    
 })

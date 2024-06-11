@@ -46,7 +46,9 @@ exports.categoryCreateGet = asyncHandler(async (req, res) => {
         title: 'New Department Form', 
         department: undefined,
         errors: undefined,
-        page: 'categoryForm' }
+        page: 'categoryForm',
+        user: req.user
+     }
     res.render('layout', renderObject)
 })
 
