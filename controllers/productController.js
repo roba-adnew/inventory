@@ -124,7 +124,8 @@ exports.productDetail = asyncHandler(async (req, res) => {
     const renderConfig = {
         page: 'productDetails',
         title: 'Product',
-        productDetails: productDetails
+        productDetails: productDetails,
+        user: req.user
     }
     res.render('layout', renderConfig)
 })
