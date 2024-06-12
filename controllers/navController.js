@@ -30,7 +30,8 @@ exports.dynamicHandler = asyncHandler(async (req, res) => {
             renderConfig = {
                 page: 'productList',
                 title: 'Inventory',
-                productList: allProducts
+                productList: allProducts,
+                user: req.user
             }
             break;
         case '/catalog/departments':

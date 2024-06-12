@@ -51,7 +51,8 @@ exports.productCreatePost = [
                 title: 'New Product Form',
                 product: product,
                 errors: errors.array(),
-                departments: allDepartments
+                departments: allDepartments,
+                user: req.user
             }
             res.render('layout', renderConfig);
             return;
@@ -82,7 +83,8 @@ exports.productCreateGet = asyncHandler(async (req, res) => {
         title: 'New Product Form',
         product: undefined,
         errors: undefined,
-        departments: allDepartments
+        departments: allDepartments,
+        user: req.user
     }
     res.render('layout', renderConfig)
 })
@@ -107,6 +109,7 @@ exports.productDeleteGet = asyncHandler(async (req, res) => {
         page: 'productDelete',
         title: 'Delete Product',
         productDetails: productDetails,
+        user: req.user
     };
 
     res.render('layout', renderConfig)

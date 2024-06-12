@@ -22,6 +22,7 @@ exports.categoryCreatePost = [
                 title: "Create a department",
                 department: department,
                 errors: errors.array(),
+                user: req.user
             });
             return;
         }
@@ -67,7 +68,8 @@ exports.categoryDeleteGet = asyncHandler(async (req, res) => {
         title: 'Delete department',
         page: 'categoryDelete',
         department: category,
-        categoryProducts: categoryProducts
+        categoryProducts: categoryProducts,
+        user: req.user
     }
 
     res.render('layout', renderConfig)
@@ -94,7 +96,8 @@ exports.categoryDetail = asyncHandler(async (req, res) => {
         page: 'categoryDetails',
         title: 'Category',
         department: category,
-        categoryProducts: categoryProducts
+        categoryProducts: categoryProducts,
+        user: req.user
     }
     res.render('layout', renderObject)
 })

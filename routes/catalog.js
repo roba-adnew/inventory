@@ -8,38 +8,36 @@ const navController = require("../controllers/navController");
 /// PRODUCT ROUTES ///
 // GET request for creating a Department
 
-router.get("/department/create", categoryController.categoryCreateGet);
+router.get("/catalog/department/create", categoryController.categoryCreateGet);
 
 // POST request for creating Category.
-router.post("/department/create", categoryController.categoryCreatePost);
+router.post("/catalog/department/create", categoryController.categoryCreatePost);
 
 // GET request to delete Category.
-router.get("/department/:id/delete", categoryController.categoryDeleteGet);
+router.get("/catalog/department/:id/delete", categoryController.categoryDeleteGet);
 
 // POST request to delete Category.
-router.post("/department/:id/delete", categoryController.categoryDeletePost);
+router.post("/catalog/department/:id/delete", categoryController.categoryDeletePost);
 
 // GET request for one Category.
-router.get("/department/:id", categoryController.categoryDetail);
+router.get("/catalog/department/:id", categoryController.categoryDetail);
 
 // GET request for creating a Product. NOTE This must come before routes that display Product (uses id).
-router.get("/product/create", productController.productCreateGet);
+router.get("/catalog/product/create", productController.productCreateGet);
 
 // POST request for creating Product.
-router.post("/product/create", productController.productCreatePost);
+router.post("/catalog/product/create", productController.productCreatePost);
 
 // GET request to delete Product.
-router.get("/product/:id/delete", productController.productDeleteGet);
+router.get("/catalog/product/:id/delete", productController.productDeleteGet);
 
 // POST request to delete Product.
-router.post("/product/:id/delete", productController.productDeletePost);
+router.post("/catalog/product/:id/delete", productController.productDeletePost);
 
 // GET request for one Product.
-router.get("/product/:id", productController.productDetail);
+router.get("/catalog/product/:id", productController.productDetail);
 
 // GET catalog home page, department list page, and product list page.
 router.get('*', navController.dynamicHandler)
-
-
 
 module.exports = router;
