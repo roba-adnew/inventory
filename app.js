@@ -6,7 +6,8 @@ var logger = require('morgan');
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-var usersRouter = require('./routes/users');
+// var indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
 const catalogRouter = require('./routes/catalog');
 const compression = require("compression");
 const helmet = require("helmet");
@@ -116,10 +117,8 @@ app.use((req, res, next) => {
 });
 
 // Routers for views 
-app.use('/', catalogRouter);
 app.use('/users', usersRouter);
-
-
+app.use('/', catalogRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

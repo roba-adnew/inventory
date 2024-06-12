@@ -9,6 +9,7 @@ exports.dynamicHandler = asyncHandler(async (req, res) => {
 
     switch (req.path) {
         case '/':
+        case '/catalog':
             const [numProducts, numCategories] =
                 await Promise.all([
                     Product.countDocuments({}).exec(),
@@ -22,7 +23,7 @@ exports.dynamicHandler = asyncHandler(async (req, res) => {
                 user: req.user
             };
             break;
-        case '/products':
+        case '/catalog/products':
             const allProducts = await Product
                 .find({}, "name category description")
                 .sort({ name: 1 })
@@ -34,7 +35,7 @@ exports.dynamicHandler = asyncHandler(async (req, res) => {
                 productList: allProducts
             }
             break;
-        case '/departments':
+        case '/catalog/departments':
             const allDepartments = await Category
                 .find({}, "name")
                 .sort({ name: 1 })
