@@ -5,8 +5,6 @@ const asyncHandler = require('express-async-handler');
 exports.dynamicHandler = asyncHandler(async (req, res) => {
     let renderConfig;
 
-    
-
     switch (req.path) {
         case '/':
         case '/catalog':
@@ -43,7 +41,8 @@ exports.dynamicHandler = asyncHandler(async (req, res) => {
             renderConfig = {
                 page: 'categoryList',
                 title: 'Departments',
-                categoryList: allDepartments
+                categoryList: allDepartments,
+                user: req.user
             }
             break;
     }

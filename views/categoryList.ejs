@@ -1,14 +1,16 @@
 <h1><%= title %></h1>
-<% if (categoryList) {%>
-    <ul>
-        <% for (let category of categoryList) { %>
-            <li>
-                <a href=<%- category.url %>><%= category.name %></a>
-            </li>
-            <% }%>
-    </ul>
-<% } else {%>
-    <p>We don't have any inventory right now</p>
-    <% }%>
-
-
+<% if (user) { %>
+    <% if (categoryList) {%>
+        <ul>
+            <% for (let category of categoryList) { %>
+                <li>
+                    <a href=<%- category.url %>><%= category.name %></a>
+                </li>
+                <% }%>
+        </ul>
+    <% } else {%>
+        <p>We don't have any inventory right now</p>
+        <% }%>
+<% } else { %>
+    <p> Sorry, you gotta either <a href="/users/sign-up">create an account</a> or <a href="/users/login"> login</a></p>
+    <% } %>
