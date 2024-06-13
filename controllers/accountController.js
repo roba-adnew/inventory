@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcryptjs');
+const passport = require("passport");
 const User = require('../models/user');
 
 
@@ -12,6 +13,11 @@ exports.loginGet = asyncHandler(async (req, res, next) => {
     res.render('layout', renderConfig)
 })
 
+exports.loginPost = passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/login"
+  })
+
 
 exports.accountCreateGet = asyncHandler(async (req, res, next) => {
     const renderConfig = {
@@ -23,19 +29,6 @@ exports.accountCreateGet = asyncHandler(async (req, res, next) => {
     res.render('layout', renderConfig)
 })
 
-// exports.accountCreatePost = asyncHandler(async (req, res, next) => {
-//     try {
-//         const user = new User({
-//             username: req.body.username,
-//             password: req.body.password
-//         });
-//         const result = await user.save();
-//         console.log("successful account creation")
-//         res.redirect("/");
-//     } catch (err) {
-//         return next(err);
-//     };
-// })
 
 exports.accountCreatePost = asyncHandler(async (req, res, next) => {
     bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {

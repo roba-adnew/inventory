@@ -36,22 +36,19 @@ passport.use(
     })
   );
 
-  passport.serializeUser((user, done) => {
-    done(null, user.id);
-  });
-  
-  passport.deserializeUser(async (id, done) => {
-    try {
-      const user = await User.findById(id);
-      done(null, user);
-    } catch (err) {
-      done(err);
-    };
-  });
+passport.serializeUser((user, done) => {
+done(null, user.id);
+});
 
-router.post("/login", passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/login"
-  }))
+passport.deserializeUser(async (id, done) => {
+try {
+    const user = await User.findById(id);
+    done(null, user);
+} catch (err) {
+    done(err);
+};
+});
+
+router.post("/login", accountController.loginPost)
 
 module.exports = router;
